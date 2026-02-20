@@ -15,8 +15,7 @@ async function bootstrap() {
     prefix: '/uploads/',
   });
   app.enableCors({
-    origin: ['https://postgram.com'],
-    methods: 'GET,POST,PUT,DELETE',
+    origin: true,
     credentials: true,
   });
   app.use(helmet());
@@ -33,6 +32,7 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+  app.useLogger(['log', 'warn', 'error']);
   await app.listen(3000);
 }
 bootstrap();
