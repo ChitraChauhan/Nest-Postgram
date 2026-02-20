@@ -12,10 +12,13 @@ import { ChatModule } from './chat/chat.module';
 
 @Module({
   imports: [
-    NestConfigModule.forRoot({ isGlobal: true }),
+    NestConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env.production',
+    }),
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => ({
+      useFactory: (configService: ConfigService) => ({
         uri: configService.mongoUri,
       }),
       inject: [ConfigService],
@@ -24,7 +27,7 @@ import { ChatModule } from './chat/chat.module';
     UsersModule,
     AuthModule,
     PostsModule,
-    ChatModule
+    ChatModule,
   ],
   controllers: [AppController],
   providers: [AppService],
